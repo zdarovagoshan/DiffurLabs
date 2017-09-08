@@ -4,46 +4,27 @@
 #include <conio.h> 
 #include <iostream>
 
-float function(float x, float y)
-{
-	float f;
-	f = x + y / x;
-	return f;
-}
 
-float yt(float x)
+double function(double x, double y)
 {
-	float f;
-	f = x*x;
-	return f;
-}
-
-float yc(float x, float y, float h)
-{
-	float f;
-	f = y + h*function(x, y);
-	return f;
+	return x + y / x;
 }
 
 void main()
 {
-	float h;
-	float x, y, yci, modul;
+	double h, x, y, yci;
 	setlocale(LC_CTYPE, "Russian");
 	printf("¬ведите шаг: ");
-	scanf_s("%f", &h);
-	x = 1;
-	y = 1;
-	yci = 1;
-	modul = abs(y - yci);
-	printf("%d %f %f %f %f\n", 0, x, y, yci, modul);
-	for (int i = 1; i <= 10; i++)
+	scanf_s("%lf", &h);
+	x = 1.0f;
+	y = 1.0f;
+	yci = 1.0f;
+	printf("%d %lf %lf %lf %lf\n", 0, x, y, yci, abs(y - yci));
+	for (int i = 1; i <= (int)(0.5/h); i++)
 	{
-		yci = yc(x, yci, h);
+		yci = yci+h*function(x, yci);
 		x = x + h;
-		y = yt(x);
-		modul = abs(y - yci);
-		printf("%d %f %f %f %f\n", i, x, y, yci, modul);
+		printf("%d %lf %lf %lf %lf\n", i, x, y, yci, abs(x*x - yci));
 	}
 	_getch();
 }
